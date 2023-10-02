@@ -1,0 +1,11 @@
+<div class="form-field">
+  <label [ngClass]="{'label-focused':focused,'label-invalid':invalid }"  >{{label}}</label>
+  <input [type]="type" (focus)="focused =true"
+  (keyup)="changeText($event)"
+  [value]="value"
+  [(ngModel)]="value"
+  (change)="dateChange($event)"
+  [ngClass]="{'input-invalid':invalid}"
+  (blur)="onTouched()"/>
+
+</div>

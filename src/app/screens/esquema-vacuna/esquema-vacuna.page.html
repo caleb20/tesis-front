@@ -1,0 +1,67 @@
+<app-toolbar></app-toolbar>
+
+<ion-content class="screen-paciente">
+  <ion-col size="6">
+    <h6>Inicio > <b> Esquema de Vacunación</b></h6>
+    <h1>Esquema de Vacunación Regular</h1>
+  </ion-col>
+<h6 class="ion-no-margin">Completando este esquema provienes mas de 26 enfermedades</h6>
+
+<ion-card *ngIf="estadoVacunacion">
+  <ion-item lines="none">
+    <ion-icon name="person-outline"></ion-icon>
+    <div class="f-18 b "> &nbsp;Datos del vacunado</div>
+    <!-- <ion-label>ion-item in a card, icon left, button right</ion-label> -->
+  <!--   <ion-button fill="clear" slot="end" color="dark">
+      <ion-icon name="ellipsis-vertical"></ion-icon>
+    </ion-button> -->
+  </ion-item>
+    <ion-row class="ion-text-center">
+      <ion-col size="4">
+        <div class="f-13">N DNI</div>
+        <ion-text class="f-10 b">{{estadoVacunacion.dni}}</ion-text>
+      </ion-col>
+      <ion-col size="4">
+        <div class="f-13">Nombres y Apellidos</div>
+        <ion-text class="f-10 b">{{estadoVacunacion.nombres}} {{estadoVacunacion.apellidos}}</ion-text>
+      </ion-col>
+      <ion-col size="4" >
+        <div class="f-13">Edad</div>
+        <ion-text class="f-10 b">{{obtenerMeses()}}</ion-text>
+      </ion-col>
+    </ion-row>
+
+</ion-card>
+<ng-container *ngIf="estadoVacunacion">
+  <ion-card *ngFor="let grupoVacunaDTO of estadoVacunacion.grupoVacunaDTO;let i = index">
+    <ion-header>
+      <ion-item>
+        <ion-icon [name]="validarCheck(grupoVacunaDTO)?'checkmark-circle':'checkmark-circle-outline'"></ion-icon>
+        <div class="f-18 b"> &nbsp;{{grupoVacunaDTO.edadAplica}}</div>
+        <!-- <ion-label>ion-item in a card, icon left, button right</ion-label> -->
+      <!--   <ion-button fill="clear" slot="end" color="dark">
+          <ion-icon name="ellipsis-vertical"></ion-icon>
+        </ion-button> -->
+        <ion-col slot="end" size="6" class="ion-text-right">
+          <div class="f-13">11-11-20</div>
+          <ion-text class="f-10">Fecha vacunacion</ion-text>
+        </ion-col>
+  
+      </ion-item>
+      <ion-item *ngFor="let vacunaDTO of grupoVacunaDTO.vacunaDTO">
+        <ion-icon [name]="vacunaDTO.aplicado?'checkmark-circle':'checkmark-circle-outline'" (click)="aplicarVacuna(vacunaDTO)"></ion-icon>
+        <ion-col>
+         <div class="f-15">{{vacunaDTO.nombreVacuna}}
+          <span title="{{vacunaDTO.descripcion}}"  (click)="informacionVacunacion(vacunaDTO.descripcion)">  
+           <ion-icon class="no-event" name="information-circle-outline"  ></ion-icon> 
+          </span>
+          </div> 
+          <ion-text class="f-10">{{vacunaDTO.enfermedadesPreviene}}</ion-text>
+        </ion-col>
+        
+      </ion-item>
+    </ion-header>
+  </ion-card>
+</ng-container>
+
+</ion-content>
